@@ -1,0 +1,50 @@
+site_name: Conch
+
+pages:
+  - 'Home': 'index.md'
+  - 'About':
+    - 'Overview': 'about/index.md'
+    - 'Architecture': 'architecture/index.md'
+    - 'Development': 'development/index.md'
+    - 'Features': 'features/index.md'
+    - 'Roadmap': 'roadmap/index.md'
+  - 'Using Conch':
+    - 'Overview': 'usage/index.md'
+    - 'Web UI': 'usage/ui/index.md'
+    - 'CLI': 'usage/cli/index.md'
+  - 'Conch Relay Devices':
+    - 'Overview': 'relay/index.md'
+    - 'Setup': 'relay/setup.md'
+    - 'Usage': 'relay/usage.md'
+    - 'Staus and Icons': 'relay/status.md'
+
+theme:
+  name: 'material'
+  palette:
+    primary: 'deep orange'
+    accent: 'indigo'
+
+markdown_extensions:
+  - admonition
+  - codehilite:
+      guess_lang: false
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_generator: !!python/name:pymdownx.emoji.to_svg
+  - pymdownx.inlinehilite
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+  - markdown_include.include:
+      base_path: docs
