@@ -483,23 +483,23 @@
                 
                 
                 <h1 id="diagnostic-relay-device-drd">Diagnostic Relay Device (DRD)<a class="headerlink" href="#diagnostic-relay-device-drd" title="Permanent link">&para;</a></h1>
+<p>Conch Diagnostic Relay Devices are small x86-based devices which are attached to
+pre-production racks to ensure that the servers, switches, and network cabling
+inside an assembled rack conform to Joyent’s specifications regarding correct
+network wiring harness, firmware versions, and hardware component manifests.</p>
+<p><a href="http://farscape.wikia.com/wiki/Diagnostic_Repair_Drone">DRDs</a> are generally used in off-site integration by third-party vendors.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The DRD was previously known as the Preflight Relay Device, but this name
-has been changed to avoid overloading "PRD", internally.</p>
+<p>The DRD was previously known as the Preflight Relay Device.</p>
 </div>
-<p>Joyent’s Conch system with its Diagnostic Relay Devices ensures that the
-servers, switches, and network cabling inside an assembled rack conform to
-Joyent’s specifications regarding correct network wiring harness, firmware
-versions, and hardware component manifests.</p>
-<p>DRDs are generally used in off-site integration by third-party vendors.</p>
-<p>Once all items are verified to be correct, it performs burn-in testing of the
-CPU, DRAM, and disks of each system and then powers the system off when
+<p>Once all devices are verified to be correct, the DRD performs burn-in testing of
+the CPU, DRAM, and disks of each system and then powers the system off when
 completed.</p>
 <p>Joyent staff track the progress of the systems undergoing preflight testing live
 and advise integration staff on any anomalies which require correcting. The goal
 is to verify correct configurations and to root out failing or DOA components
 prior to their departure to the datacenter.</p>
+<p><img alt="drd" src="./../images/drd.jpg" /></p>
 <h2 id="automated-upgrades-and-validation">Automated Upgrades and Validation<a class="headerlink" href="#automated-upgrades-and-validation" title="Permanent link">&para;</a></h2>
 <p>Each switch and server come from the manufacturer with the configuration
 specified in Bill of Materials, but it has not yet been customized for
