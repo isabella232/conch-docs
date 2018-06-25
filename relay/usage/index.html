@@ -441,8 +441,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../status/" title="Staus and Icons" class="md-nav__link">
-      Staus and Icons
+    <a href="../status/" title="Status and Icons" class="md-nav__link">
+      Status and Icons
     </a>
   </li>
 
@@ -521,21 +521,23 @@ below. At this point, all devices in the rack should be completely powered off.<
 <li>ETH1 should be plugged into port 23 on the bottom Arista switch</li>
 </ul>
 <p>The cable for ETH1/Arista requires the included 1gig copper SFP module.</p>
-<div class="admonition note">
-<p class="admonition-title">IMAGE</p>
-<p>Need to add the DRD network image here.</p>
-</div>
+<p><img alt="relay-back" src="../../images/relay_back.png" /></p>
 <p>The AC-DC power adaptor. Ensure that the DRD is powered and the blue lamp on the
 rear of the unit is illuminated. The blue lamp is a LED that is visible through
 the reset button access port to the upper-right of the DC power connector.</p>
 <h2 id="powering-on-the-racks">Powering On The Racks<a class="headerlink" href="#powering-on-the-racks" title="Permanent link">&para;</a></h2>
-<p>These steps should be completed in order:</p>
-<p>Verify that all system serial numbers for the rack have been entered into the
-Conch database as shown in the following image.</p>
-<div class="admonition note">
-<p class="admonition-title">IMAGE</p>
-<p>Rack assignment image</p>
-</div>
+<p>Before applying power to the rack, all serial numbers need to be entered into
+the Rack Layout. The contents of each rack are predefined and do not require
+modification.</p>
+<p>The only data entry required is entering the serial numbers of the devices in
+the rack.</p>
+<p>Find the specific rack you are working on in the Browse section of the Conch Web
+UI. Click the orange "edit assignments" button.</p>
+<p><img alt="rack-view" src="../../images/rack_view.png" /></p>
+<p>Enter the serial numbers for the systems in each Rack Unit, and then click Save.</p>
+<p>If asset tags are being applied to the system, they should also be entered at
+this time.</p>
+<p><img alt="rack-assignment" src="../../images/rack_assignment.png" /></p>
 <p>When all serial numbers are entered into the text boxes associated with their
 rack unit, press the Assign Devices button to save the information.</p>
 <p>The rack is now ready to be powered on.  When the rack’s PDUs are switched on,
@@ -590,13 +592,13 @@ Operations.</p>
           </a>
         
         
-          <a href="../status/" title="Staus and Icons" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../status/" title="Status and Icons" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Staus and Icons
+                Status and Icons
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
