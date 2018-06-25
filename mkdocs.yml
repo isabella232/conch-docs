@@ -16,7 +16,7 @@ pages:
     - 'Overview': 'relay/index.md'
     - 'Setup': 'relay/setup.md'
     - 'Usage': 'relay/usage.md'
-    - 'Staus and Icons': 'relay/status.md'
+    - 'Status and Icons': 'relay/status.md'
 
 theme:
   name: 'material'

@@ -13,8 +13,7 @@ A DRD requires 2 ethernet and 1 power connection to a rack:
 
 The cable for ETH1/Arista requires the included 1gig copper SFP module.
 
-!!! note "IMAGE"
-    Need to add the DRD network image here.
+![relay-back](../images/relay_back.png)
 
 The AC-DC power adaptor. Ensure that the DRD is powered and the blue lamp on the
 rear of the unit is illuminated. The blue lamp is a LED that is visible through
@@ -22,13 +21,24 @@ the reset button access port to the upper-right of the DC power connector.
 
 ## Powering On The Racks
 
-These steps should be completed in order:
+Before applying power to the rack, all serial numbers need to be entered into
+the Rack Layout. The contents of each rack are predefined and do not require
+modification.
 
-Verify that all system serial numbers for the rack have been entered into the
-Conch database as shown in the following image.
+The only data entry required is entering the serial numbers of the devices in
+the rack.
 
-!!! note "IMAGE"
-    Rack assignment image
+Find the specific rack you are working on in the Browse section of the Conch Web
+UI. Click the orange "edit assignments" button.
+
+![rack-view](../images/rack_view.png)
+
+Enter the serial numbers for the systems in each Rack Unit, and then click Save.
+
+If asset tags are being applied to the system, they should also be entered at
+this time.
+
+![rack-assignment](../images/rack_assignment.png)
 
 When all serial numbers are entered into the text boxes associated with their
 rack unit, press the Assign Devices button to save the information.
