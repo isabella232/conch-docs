@@ -8,8 +8,8 @@ below. At this point, all devices in the rack should be completely powered off.
 
 A DRD requires 2 ethernet and 1 power connection to a rack:
 
-* ETH0 should be plugged into port 21 on the Cisco management switch
-* ETH1 should be plugged into port 23 on the bottom Arista switch
+* ETH0 should be plugged into port 21 on the bottom Arista switch
+* ETH1 should be plugged into port 21 on Cisco management switch
 
 The cable for ETH1/Arista requires the included 1gig copper SFP module.
 
