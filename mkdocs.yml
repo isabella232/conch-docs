@@ -5,7 +5,6 @@ pages:
   - 'About':
     - 'Overview': 'about/index.md'
     - 'Architecture': 'architecture/index.md'
-    - 'Development': 'development/index.md'
     - 'Features': 'features/index.md'
     - 'Roadmap': 'roadmap/index.md'
   - 'Using Conch':
@@ -17,6 +16,9 @@ pages:
     - 'Setup': 'relay/setup.md'
     - 'Usage': 'relay/usage.md'
     - 'Status and Icons': 'relay/status.md'
+  - 'Development':
+    - 'Overview': 'development/index.md'
+    - 'Writing Validations': 'development/validations.md'
 
 theme:
   name: 'material'
