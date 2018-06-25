@@ -25,12 +25,13 @@ the reset button access port to the upper-right of the DC power connector.
 These steps should be completed in order:
 
 Verify that all system serial numbers for the rack have been entered into the
-preflight database as shown in the following figure.  When all serial numbers
-are entered into the text boxes associated with their rack unit, press the
-Assign Devices button to save the information.
+Conch database as shown in the following image.
 
 !!! note "IMAGE"
     Rack assignment image
+
+When all serial numbers are entered into the text boxes associated with their
+rack unit, press the Assign Devices button to save the information.
 
 The rack is now ready to be powered on.  When the rack’s PDUs are switched on,
 the switches, DRD and server BMCs should power on. From this point, the process
