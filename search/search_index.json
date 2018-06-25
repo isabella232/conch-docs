@@ -1,0 +1,254 @@
+{
+    "docs": [
+        {
+            "location": "/",
+            "text": "This documentation is very much a work in progress.\n\n\n\n\nConch helps you build and manage datacenters.\n\n\nConch's goal is to provide an end-to-end solution for full datacenter resource\nlifecycle: from design to initial power-on to end-of-life for all components of\nall devices.\n\n\nConch is open source, licensed under MPL2.",
+            "title": "Home"
+        },
+        {
+            "location": "/about/",
+            "text": "",
+            "title": "Overview"
+        },
+        {
+            "location": "/architecture/",
+            "text": "",
+            "title": "Architecture"
+        },
+        {
+            "location": "/development/",
+            "text": "Development\n\u00b6\n\n\nDesign\n\u00b6\n\n\nMajor Conch features must be written as Request For Discussion documents (RFD).\n\n\nRFDs are published in the \nJoyent RFD GitHub repo\n.\n\n\n\n\n\n\n\n\nState\n\n\nRFD\n\n\n\n\n\n\n\n\n\n\nDeployed\n\n\nRFD 132 Conch: Unified Rack Integration Process\n\n\n\n\n\n\nDeployed\n\n\nRFD 133 Conch: Improved Device Validation\n\n\n\n\n\n\nDeployed\n\n\nRFD 134 Conch: User Access Control\n\n\n\n\n\n\nDraft\n\n\nRFD 135 Conch: Job Queue and Real-Time Notifications\n\n\n\n\n\n\nDraft\n\n\nRFD 136 Conch: Orchestration\n\n\n\n\n\n\nDraft\n\n\nRFD 140 Conch: Datacenter Designer\n\n\n\n\n\n\nPrivate\n\n\nTriton CN Setup Automation\n\n\n\n\n\n\n\n\nMinor features require discussion (often in GitHub Issues or email) but not\nRFDs.\n\n\nConch is designed in public as much as possible, though there some components\nthat are currently closed (until they can be scrubbed for security.)\n\n\nDevelopment Process\n\u00b6\n\n\nAll Pull Requests to Conch repos require code review by at least one engineer.\n\n\nA buildbot deployment runs the Conch test suites for every commit.\n\n\nBinary releases of the Conch Shell are available \nhere\n for many platforms.\n\n\nSimilar Products\n\u00b6\n\n\n\n\nThe Foreman\n\n\nCollins\n\n\nnetbox\n\n\ndevice42\n\n\nCommerical CMMS (e.g., Fiix)\n\n\nGitHub Metal Cloud\n\n\n\n\nComponents\n\u00b6\n\n\nAPI\n\u00b6\n\n\nConch's core is its REST API. The API is documented \nhere\n.\n\n\nIt exposes basic CRUD for all resources we know how to manage:\n\n\n\n\nUsers\n\n\nWorkspaces\n\n\nDatacenters, rooms (soon: cages)\n\n\nRacks\n\n\nHardware products (servers, switches)\n\n\nDevices\n\n\nValidation failures\n\n\nStats\n\n\n\n\nWorkspaces are arbitrary collections of Datacenter Rooms or Racks. This is\nuseful for a number of reasons: You can define workspaces for AZs, for\nexpansions, or for specific builds. You can invite specific users to a given\nworkspace, allowing you to limit the devices an outside vendor can interact\nwith. Workspaces are a very powerful, useful primitive.\n\n\nIt also includes report ingestion and validation endpoints. These feed into the\n\nvalidation engine\n\nwhich allows us to decide if a device is healthy or not, based off its hardware\nprofile, environmental or arbitrary data.\n\n\nWriting and testing new validations is documented\n\nhere\n.\n\n\nThe APIs are written in Perl's \nMojolicious framework\n, and are available\n\nhere\n.\n\n\nA basic workspace-aware stats framework is available \nhere\n.\n\n\nUI\n\u00b6\n\n\nThe Conch UI is rapidly evolving. Its initial design was targeted at hardware\nintegrators and datacenter operation staff -- the main focus was on defining\nrack layout and identifying problems with devices in those racks.\n\n\nAs time goes on, the UI will expand to include better search and reporting\noptions, and more advanced features like datacenter, rack, and BOM design.\n\n\nThe UI is an API consumer, and is not magical in any respect.\n\n\nThe UI is written in \nMithril.js\n, and is available\n\nhere\n.\n\n\nConch Shell\n\u00b6\n\n\nThe Conch Shell is a CLI tool provides many useful primitives for interacting\nwith the Conch API. It supports multiple user profiles and endpoints, and has\nJSON output options to allow users to create arbitrary processes with it.\n\n\nThe Shell has many options. Here are some examples of using it:\n\n\n\n\nOverview\n\n\nRack slot contents\n\n\nValidation plans\n\n\nHardware profiles\n\n\n\n\nThe Shell is an API consumer, and is not magical in any respect.\n\n\nThe Shell is written on Go, and is available \nhere\n.\n\n\nA Go library is also \navailable\n for interacting with the API.\n\n\nDatabase\n\u00b6\n\n\nConch's core database is Postgres.\n\n\nConch uses a \nsimple migration system\n\nfor managing database changes.\n\n\nRelay\n\u00b6\n\n\nConch Relay is a simple API service that takes traffic from the livesys or other\nConch clients and interacts with the Conch API. It is currently used mainly in\nintegration and initial validation stages of datacenter builds.\n\n\nThe Relay codebase is currently closed, but is planned on being open ASAP.\n\n\nThe Relay comes in two flavors:\n\n\nDiagnostic Relay Device (DRD)\n\u00b6\n\n\nAKA Preflight Relay Device (PRD).\n\n\nThis is a physical deployment of the Relay service. DRDs are simple x86 or\nRasberry Pi devices that run the Relay and various other agents for standing up\nand configuring racks.\n\n\nIn this mode, we support configuration of TORs. As such, the device is plugged\ninto individual racks. In certain configurations, the DRD must have serial\ncables plugged into the TORs to configure them. Other switches only require\nethernet access to do so.\n\n\nThis mode is exclusing used in off-site integration facilities, before the racks\nare shipped to the datacenter.\n\n\nThe Relay also includes a support tunnel feature, so engineers can remotely log\ninto the integration facility if needed.\n\n\nRelay Service (VM)\n\u00b6\n\n\nIn this mode, the Relay runs in a SmartOS or VM, and operates in a post-shipment\nre-validation mode. In the future, this mode may also allow the planned\nproduction inventory agent to submit reports to the Conch APIs from a local\nservice.\n\n\nLivesys\n\u00b6\n\n\nThe live system is a read-only Linux image the Relay PXE boots on servers.\n\n\nThe livesys includes a number of agents:\n\n\n\n\nFirmware upgrade\n\n\nReporter\n\n\nRebooter\n\n\nBurnin\n\n\n...\n\n\n\n\nThe livesys is configured via \nchef-solo\n cookbooks.\n\n\nThe livesys codebase is currently closed, but is planned on being open ASAP.",
+            "title": "Development"
+        },
+        {
+            "location": "/development/#development",
+            "text": "",
+            "title": "Development"
+        },
+        {
+            "location": "/development/#design",
+            "text": "Major Conch features must be written as Request For Discussion documents (RFD).  RFDs are published in the  Joyent RFD GitHub repo .     State  RFD      Deployed  RFD 132 Conch: Unified Rack Integration Process    Deployed  RFD 133 Conch: Improved Device Validation    Deployed  RFD 134 Conch: User Access Control    Draft  RFD 135 Conch: Job Queue and Real-Time Notifications    Draft  RFD 136 Conch: Orchestration    Draft  RFD 140 Conch: Datacenter Designer    Private  Triton CN Setup Automation     Minor features require discussion (often in GitHub Issues or email) but not\nRFDs.  Conch is designed in public as much as possible, though there some components\nthat are currently closed (until they can be scrubbed for security.)",
+            "title": "Design"
+        },
+        {
+            "location": "/development/#development-process",
+            "text": "All Pull Requests to Conch repos require code review by at least one engineer.  A buildbot deployment runs the Conch test suites for every commit.  Binary releases of the Conch Shell are available  here  for many platforms.",
+            "title": "Development Process"
+        },
+        {
+            "location": "/development/#similar-products",
+            "text": "The Foreman  Collins  netbox  device42  Commerical CMMS (e.g., Fiix)  GitHub Metal Cloud",
+            "title": "Similar Products"
+        },
+        {
+            "location": "/development/#components",
+            "text": "",
+            "title": "Components"
+        },
+        {
+            "location": "/development/#api",
+            "text": "Conch's core is its REST API. The API is documented  here .  It exposes basic CRUD for all resources we know how to manage:   Users  Workspaces  Datacenters, rooms (soon: cages)  Racks  Hardware products (servers, switches)  Devices  Validation failures  Stats   Workspaces are arbitrary collections of Datacenter Rooms or Racks. This is\nuseful for a number of reasons: You can define workspaces for AZs, for\nexpansions, or for specific builds. You can invite specific users to a given\nworkspace, allowing you to limit the devices an outside vendor can interact\nwith. Workspaces are a very powerful, useful primitive.  It also includes report ingestion and validation endpoints. These feed into the validation engine \nwhich allows us to decide if a device is healthy or not, based off its hardware\nprofile, environmental or arbitrary data.  Writing and testing new validations is documented here .  The APIs are written in Perl's  Mojolicious framework , and are available here .  A basic workspace-aware stats framework is available  here .",
+            "title": "API"
+        },
+        {
+            "location": "/development/#ui",
+            "text": "The Conch UI is rapidly evolving. Its initial design was targeted at hardware\nintegrators and datacenter operation staff -- the main focus was on defining\nrack layout and identifying problems with devices in those racks.  As time goes on, the UI will expand to include better search and reporting\noptions, and more advanced features like datacenter, rack, and BOM design.  The UI is an API consumer, and is not magical in any respect.  The UI is written in  Mithril.js , and is available here .",
+            "title": "UI"
+        },
+        {
+            "location": "/development/#conch-shell",
+            "text": "The Conch Shell is a CLI tool provides many useful primitives for interacting\nwith the Conch API. It supports multiple user profiles and endpoints, and has\nJSON output options to allow users to create arbitrary processes with it.  The Shell has many options. Here are some examples of using it:   Overview  Rack slot contents  Validation plans  Hardware profiles   The Shell is an API consumer, and is not magical in any respect.  The Shell is written on Go, and is available  here .  A Go library is also  available  for interacting with the API.",
+            "title": "Conch Shell"
+        },
+        {
+            "location": "/development/#database",
+            "text": "Conch's core database is Postgres.  Conch uses a  simple migration system \nfor managing database changes.",
+            "title": "Database"
+        },
+        {
+            "location": "/development/#relay",
+            "text": "Conch Relay is a simple API service that takes traffic from the livesys or other\nConch clients and interacts with the Conch API. It is currently used mainly in\nintegration and initial validation stages of datacenter builds.  The Relay codebase is currently closed, but is planned on being open ASAP.  The Relay comes in two flavors:",
+            "title": "Relay"
+        },
+        {
+            "location": "/development/#diagnostic-relay-device-drd",
+            "text": "AKA Preflight Relay Device (PRD).  This is a physical deployment of the Relay service. DRDs are simple x86 or\nRasberry Pi devices that run the Relay and various other agents for standing up\nand configuring racks.  In this mode, we support configuration of TORs. As such, the device is plugged\ninto individual racks. In certain configurations, the DRD must have serial\ncables plugged into the TORs to configure them. Other switches only require\nethernet access to do so.  This mode is exclusing used in off-site integration facilities, before the racks\nare shipped to the datacenter.  The Relay also includes a support tunnel feature, so engineers can remotely log\ninto the integration facility if needed.",
+            "title": "Diagnostic Relay Device (DRD)"
+        },
+        {
+            "location": "/development/#relay-service-vm",
+            "text": "In this mode, the Relay runs in a SmartOS or VM, and operates in a post-shipment\nre-validation mode. In the future, this mode may also allow the planned\nproduction inventory agent to submit reports to the Conch APIs from a local\nservice.",
+            "title": "Relay Service (VM)"
+        },
+        {
+            "location": "/development/#livesys",
+            "text": "The live system is a read-only Linux image the Relay PXE boots on servers.  The livesys includes a number of agents:   Firmware upgrade  Reporter  Rebooter  Burnin  ...   The livesys is configured via  chef-solo  cookbooks.  The livesys codebase is currently closed, but is planned on being open ASAP.",
+            "title": "Livesys"
+        },
+        {
+            "location": "/features/",
+            "text": "Features\n\u00b6\n\n\nArchitecture\n\u00b6\n\n\n\n\n Multi-tentant web service\n\n\n Basic user roles\n\n\n Rest APIs\n\n\n CLI tool\n\n\n Workspaces\n\n\n Validation engine\n\n\n User settings (KV)\n\n\n Device settings (KV)\n\n\n Feature flags\n\n\n Validation configuration\n\n\n Organizations\n\n\n Organization settings (KV)\n\n\n Korean localization (partial)\n\n\n\n\nDatacenter Design and Visualization\n\u00b6\n\n\n\n\n Basic hardware profile support\n\n\n Robust hardware profile support\n\n\n IPAM\n\n\n BOM designer\n\n\n Rack designer\n\n\n Datacenter designer\n\n\n Design review and approval\n\n\n\n\nAsset Management\n\u00b6\n\n\n\n\n Server tracking\n\n\n TOR tracking\n\n\n Component database\n\n\n Parts and supply tracking\n\n\n Preventative maintenance\n\n\n Maintenance schedules\n\n\n Work orders via JIRA integration or similar\n\n\n Spare management\n\n\n Build reports\n\n\n Failure reports\n\n\n Validation/audit reports\n\n\n\n\nProcurement and RFQs\n\u00b6\n\n\n\n\n Emit full BOMs from a datacenter workspace\n\n\n\n\nPreflight\n\u00b6\n\n\n\"Preflight\" is the initial stage of a device entering service. This may happen\nduring hardware integration, or during datacenter standup.\n\n\n\n\n Embedded Relay Devices for off-site usage (rack integration)\n\n\n Linux-based live system (PXE booted)\n\n\n Server firmware upgrade\n\n\n Server configuration\n\n\n Server validation\n\n\n Server burnin\n\n\n TOR firmware upgrade\n\n\n TOR configuration\n\n\n TOR basic validation\n\n\n TOR extended validation\n\n\n TOR burnin\n\n\n Server/TOR network map validation\n\n\n Network stress testing (intra-rack)\n\n\n Network stress testing (inter-rack)\n\n\n Network stress testing (cross-DC)\n\n\n Burnin/stress metrics stored in TSDB\n\n\n PDU firmware upgrade\n\n\n PDU configuration\n\n\n Server/PDU power map\n\n\n Multi-OS boot\n\n\n Multi-OS burnin\n\n\n\n\nServices Standup\n\u00b6\n\n\n\n\n Admin server\n\n\n Triton Headnode\n\n\n Triton Compute Node\n\n\n Manta initial install\n\n\n Manta storage expansion\n\n\n Manta metadata expansion\n\n\n\n\nDevice Production\n\u00b6\n\n\nProduction is the longest (hopefully!) stage of a device during its lifecycle.\n\n\n\n\n VM-based Relay software for on-site usage\n\n\n Agent-based version of the livesys reporter\n\n\n Diagnostics mode\n\n\n\n\nDevice Retirement\n\u00b6\n\n\n\n\n API and UI for marking devices retired",
+            "title": "Features"
+        },
+        {
+            "location": "/features/#features",
+            "text": "",
+            "title": "Features"
+        },
+        {
+            "location": "/features/#architecture",
+            "text": "Multi-tentant web service   Basic user roles   Rest APIs   CLI tool   Workspaces   Validation engine   User settings (KV)   Device settings (KV)   Feature flags   Validation configuration   Organizations   Organization settings (KV)   Korean localization (partial)",
+            "title": "Architecture"
+        },
+        {
+            "location": "/features/#datacenter-design-and-visualization",
+            "text": "Basic hardware profile support   Robust hardware profile support   IPAM   BOM designer   Rack designer   Datacenter designer   Design review and approval",
+            "title": "Datacenter Design and Visualization"
+        },
+        {
+            "location": "/features/#asset-management",
+            "text": "Server tracking   TOR tracking   Component database   Parts and supply tracking   Preventative maintenance   Maintenance schedules   Work orders via JIRA integration or similar   Spare management   Build reports   Failure reports   Validation/audit reports",
+            "title": "Asset Management"
+        },
+        {
+            "location": "/features/#procurement-and-rfqs",
+            "text": "Emit full BOMs from a datacenter workspace",
+            "title": "Procurement and RFQs"
+        },
+        {
+            "location": "/features/#preflight",
+            "text": "\"Preflight\" is the initial stage of a device entering service. This may happen\nduring hardware integration, or during datacenter standup.    Embedded Relay Devices for off-site usage (rack integration)   Linux-based live system (PXE booted)   Server firmware upgrade   Server configuration   Server validation   Server burnin   TOR firmware upgrade   TOR configuration   TOR basic validation   TOR extended validation   TOR burnin   Server/TOR network map validation   Network stress testing (intra-rack)   Network stress testing (inter-rack)   Network stress testing (cross-DC)   Burnin/stress metrics stored in TSDB   PDU firmware upgrade   PDU configuration   Server/PDU power map   Multi-OS boot   Multi-OS burnin",
+            "title": "Preflight"
+        },
+        {
+            "location": "/features/#services-standup",
+            "text": "Admin server   Triton Headnode   Triton Compute Node   Manta initial install   Manta storage expansion   Manta metadata expansion",
+            "title": "Services Standup"
+        },
+        {
+            "location": "/features/#device-production",
+            "text": "Production is the longest (hopefully!) stage of a device during its lifecycle.    VM-based Relay software for on-site usage   Agent-based version of the livesys reporter   Diagnostics mode",
+            "title": "Device Production"
+        },
+        {
+            "location": "/features/#device-retirement",
+            "text": "API and UI for marking devices retired",
+            "title": "Device Retirement"
+        },
+        {
+            "location": "/roadmap/",
+            "text": "Roadmap\n\u00b6\n\n\n2018H1 Goals\n\u00b6\n\n\n\n\nTriton CN setup automation\n\n\nNetwork stress v1\n\n\nArista/Cisco TOR support\n\n\nAudit report generation\n\n\nProduction inventory agent\n\n\nDatacenter designer\n\n\n\n\n2018H2 Goals\n\u00b6\n\n\n\n\nManta expansion automation\n\n\nSwitch VLAN API\n\n\nAdmin server install\n\n\nStore burnin in TSDB\n\n\nReporting\n\n\nTriton testing v2\n\n\nManta testing v2\n\n\nDiagnostics mode\n\n\nMulti-OS boot / burnin\n\n\nBOM builder",
+            "title": "Roadmap"
+        },
+        {
+            "location": "/roadmap/#roadmap",
+            "text": "",
+            "title": "Roadmap"
+        },
+        {
+            "location": "/roadmap/#2018h1-goals",
+            "text": "Triton CN setup automation  Network stress v1  Arista/Cisco TOR support  Audit report generation  Production inventory agent  Datacenter designer",
+            "title": "2018H1 Goals"
+        },
+        {
+            "location": "/roadmap/#2018h2-goals",
+            "text": "Manta expansion automation  Switch VLAN API  Admin server install  Store burnin in TSDB  Reporting  Triton testing v2  Manta testing v2  Diagnostics mode  Multi-OS boot / burnin  BOM builder",
+            "title": "2018H2 Goals"
+        },
+        {
+            "location": "/usage/",
+            "text": "Usage\n\u00b6\n\n\nConch is meant to enable datacenter operators and integrators to effecitvely\nmanage and build datacenters.\n\n\nWe provide a reactive UI written in mithril.js for the web interface, and a\ncommand-line utility written in Go.\n\n\nBoth the web UI and CLI use the same Conch API -- but they may expose different\nfeatures. Generally speaking, the web UI is useful for Datacenter Operations and\nIntegration staff, and the CLI tool is useful for System Administrators or\noperating Conch itself.",
+            "title": "Overview"
+        },
+        {
+            "location": "/usage/#usage",
+            "text": "Conch is meant to enable datacenter operators and integrators to effecitvely\nmanage and build datacenters.  We provide a reactive UI written in mithril.js for the web interface, and a\ncommand-line utility written in Go.  Both the web UI and CLI use the same Conch API -- but they may expose different\nfeatures. Generally speaking, the web UI is useful for Datacenter Operations and\nIntegration staff, and the CLI tool is useful for System Administrators or\noperating Conch itself.",
+            "title": "Usage"
+        },
+        {
+            "location": "/usage/ui/",
+            "text": "",
+            "title": "Web UI"
+        },
+        {
+            "location": "/usage/cli/",
+            "text": "",
+            "title": "CLI"
+        },
+        {
+            "location": "/relay/",
+            "text": "Diagnostic Relay Device (DRD)\n\u00b6\n\n\n\n\nNote\n\n\nThe DRD was previously known as the Preflight Relay Device, but this name\nhas been changed to avoid overloading \"PRD\", internally.\n\n\n\n\nJoyent\u2019s Conch system with its Diagnostic Relay Devices ensures that the\nservers, switches, and network cabling inside an assembled rack conform to\nJoyent\u2019s specifications regarding correct network wiring harness, firmware\nversions, and hardware component manifests.\n\n\nDRDs are generally used in off-site integration by third-party vendors.\n\n\nOnce all items are verified to be correct, it performs burn-in testing of the\nCPU, DRAM, and disks of each system and then powers the system off when\ncompleted.\n\n\nJoyent staff track the progress of the systems undergoing preflight testing live\nand advise integration staff on any anomalies which require correcting. The goal\nis to verify correct configurations and to root out failing or DOA components\nprior to their departure to the datacenter.\n\n\nAutomated Upgrades and Validation\n\u00b6\n\n\nEach switch and server come from the manufacturer with the configuration\nspecified in Bill of Materials, but it has not yet been customized for\nproduction.\n\n\nThe DRD Preflight environment configures and upgrades the host to Joyent\u2019s\noperating standards, using automation with scripts and software the DRDs upgrade\nand customize each host.\n\n\nThis includes the following settings:\n\n\n\n\nTop of rack switch firmware\n\n\nServer firmware for BIOS, HBA, backplane and hard drives\n\n\nCustom boot and environmental settings.\n\n\n\n\nUpgrades will automatically reboot switches and servers when necessary.\n\n\n\n\nWarning\n\n\nIt is important to maintain power to the rack during this entire process.\n\n\n\n\nIn the event that power is shut off to the rack, it should be recorded and\nreported to Joyent Build Operations.\n\n\nDuring the upgrade process the switches and servers are continuously checked for\nalignment with the production specifications.\n\n\nThis process can be viewed at \nhttps://conch.joyent.us\n using the supplied\ncredentials.\n\n\nHosts that are reporting into the interface have the cloud icon with the arrow\npointing up and if they are not actively reporting a question mark will appear.\nAs settings are validated a checkmark will appear. If there are errors an\nexclamation point will show.\n\n\nFinally, when a device reaches all of the stages of upgrading and validation a\ncheck mark with a solid colored circle will appear and the \u201cPASS\" box will show\nfor the device.",
+            "title": "Overview"
+        },
+        {
+            "location": "/relay/#diagnostic-relay-device-drd",
+            "text": "Note  The DRD was previously known as the Preflight Relay Device, but this name\nhas been changed to avoid overloading \"PRD\", internally.   Joyent\u2019s Conch system with its Diagnostic Relay Devices ensures that the\nservers, switches, and network cabling inside an assembled rack conform to\nJoyent\u2019s specifications regarding correct network wiring harness, firmware\nversions, and hardware component manifests.  DRDs are generally used in off-site integration by third-party vendors.  Once all items are verified to be correct, it performs burn-in testing of the\nCPU, DRAM, and disks of each system and then powers the system off when\ncompleted.  Joyent staff track the progress of the systems undergoing preflight testing live\nand advise integration staff on any anomalies which require correcting. The goal\nis to verify correct configurations and to root out failing or DOA components\nprior to their departure to the datacenter.",
+            "title": "Diagnostic Relay Device (DRD)"
+        },
+        {
+            "location": "/relay/#automated-upgrades-and-validation",
+            "text": "Each switch and server come from the manufacturer with the configuration\nspecified in Bill of Materials, but it has not yet been customized for\nproduction.  The DRD Preflight environment configures and upgrades the host to Joyent\u2019s\noperating standards, using automation with scripts and software the DRDs upgrade\nand customize each host.  This includes the following settings:   Top of rack switch firmware  Server firmware for BIOS, HBA, backplane and hard drives  Custom boot and environmental settings.   Upgrades will automatically reboot switches and servers when necessary.   Warning  It is important to maintain power to the rack during this entire process.   In the event that power is shut off to the rack, it should be recorded and\nreported to Joyent Build Operations.  During the upgrade process the switches and servers are continuously checked for\nalignment with the production specifications.  This process can be viewed at  https://conch.joyent.us  using the supplied\ncredentials.  Hosts that are reporting into the interface have the cloud icon with the arrow\npointing up and if they are not actively reporting a question mark will appear.\nAs settings are validated a checkmark will appear. If there are errors an\nexclamation point will show.  Finally, when a device reaches all of the stages of upgrading and validation a\ncheck mark with a solid colored circle will appear and the \u201cPASS\" box will show\nfor the device.",
+            "title": "Automated Upgrades and Validation"
+        },
+        {
+            "location": "/relay/setup/",
+            "text": "Initial Setup of Diagnostic Relay Devices (DRD)\n\u00b6\n\n\nBill of Materials\n\u00b6\n\n\nUpon receiving the Diagnostic Relay Device equipment, the shipment should be\ninspected for obvious damage or tampering.\n\n\nAny suspected damage should immediately be reported to Joyent Build Operations,\nwho can be reached at \npreflight-dev@joyent.com\n\n\nAll hardware is engineered and assembled to be robust and free of maintenance\ntasks once the DRDs are deployed. \n\n\nThe DRD shipment consists of:\n\n\n\n\n802.11n/ac wireless access point\n\n\nDiagnostic Relay Devices (DRD) with wifi antenna kits\n\n\nIEC C13-C14 power cables (blue) and AC-DC power supplies\n\n\n1gig copper SFPs\n\n\n2 CAT5 ethernet cables per DRD\n\n\n\n\nDevice Assembly\n\u00b6\n\n\nAfter unpacking, initial setup of the DRD system consists of the following\nsteps:\n\n\nUnbox the DRDs and attach the two wifi antennas included in each box to the\ngold coaxial connectors on rear of the DRD, ensuring that the antennas are\nscrewed on securely.\n\n\nUnpackage the IEC C13-C14 power cables and AC/DC power supplies and match a set\nof these to each DRD.\n\n\nWireless Connectivity\n\u00b6\n\n\nLocate an ethernet jack for the premises\u2019 network and a AC power outlet\nwhich are in reasonable wifi range of the area where the DRDs will be\noperating.\n\n\nPlug the provided wireless access point into these. This access point is fully\nsecured and acts as the bridge for the DRDs to the outside world, and thus to\nJoyent\u2019s Conch servers. It broadcasts a wireless network with the SSID of\n\u201cpreflight\u201d.\n\n\nOnly the DRDs will be able to access this SSID in order to send and receive\ntelemetry from Joyent. After initializing, the access point should display a\nlarge blue light on its top indicating that it is operating correctly and was\nable to DHCP an IP address from the local network.\n\n\nThe DRD Wireless Access Point requires access to the public internet on the\nfollowing TCP+UDP ports:\n\n\n\n\nTCP 22 (SSH)\n\n\nUDP+TCP 53 (DNS)\n\n\nUDP 123 (NTP)\n\n\nTCP 443 (HTTPS)\n\n\n\n\nAt this point, the DRD system setup is complete and, if powered on, the DRDs\nwill ping home to the Joyent Conch servers. They are now ready to be employed.\nA small blue light on the rear of each DRD indicates that it is powered on.\nThey have no on/off switch, only a small, recessed reset button in the rear\nco-located with the blue status lamp next to the DC power input.",
+            "title": "Setup"
+        },
+        {
+            "location": "/relay/setup/#initial-setup-of-diagnostic-relay-devices-drd",
+            "text": "",
+            "title": "Initial Setup of Diagnostic Relay Devices (DRD)"
+        },
+        {
+            "location": "/relay/setup/#bill-of-materials",
+            "text": "Upon receiving the Diagnostic Relay Device equipment, the shipment should be\ninspected for obvious damage or tampering.  Any suspected damage should immediately be reported to Joyent Build Operations,\nwho can be reached at  preflight-dev@joyent.com  All hardware is engineered and assembled to be robust and free of maintenance\ntasks once the DRDs are deployed.   The DRD shipment consists of:   802.11n/ac wireless access point  Diagnostic Relay Devices (DRD) with wifi antenna kits  IEC C13-C14 power cables (blue) and AC-DC power supplies  1gig copper SFPs  2 CAT5 ethernet cables per DRD",
+            "title": "Bill of Materials"
+        },
+        {
+            "location": "/relay/setup/#device-assembly",
+            "text": "After unpacking, initial setup of the DRD system consists of the following\nsteps:  Unbox the DRDs and attach the two wifi antennas included in each box to the\ngold coaxial connectors on rear of the DRD, ensuring that the antennas are\nscrewed on securely.  Unpackage the IEC C13-C14 power cables and AC/DC power supplies and match a set\nof these to each DRD.",
+            "title": "Device Assembly"
+        },
+        {
+            "location": "/relay/setup/#wireless-connectivity",
+            "text": "Locate an ethernet jack for the premises\u2019 network and a AC power outlet\nwhich are in reasonable wifi range of the area where the DRDs will be\noperating.  Plug the provided wireless access point into these. This access point is fully\nsecured and acts as the bridge for the DRDs to the outside world, and thus to\nJoyent\u2019s Conch servers. It broadcasts a wireless network with the SSID of\n\u201cpreflight\u201d.  Only the DRDs will be able to access this SSID in order to send and receive\ntelemetry from Joyent. After initializing, the access point should display a\nlarge blue light on its top indicating that it is operating correctly and was\nable to DHCP an IP address from the local network.  The DRD Wireless Access Point requires access to the public internet on the\nfollowing TCP+UDP ports:   TCP 22 (SSH)  UDP+TCP 53 (DNS)  UDP 123 (NTP)  TCP 443 (HTTPS)   At this point, the DRD system setup is complete and, if powered on, the DRDs\nwill ping home to the Joyent Conch servers. They are now ready to be employed.\nA small blue light on the rear of each DRD indicates that it is powered on.\nThey have no on/off switch, only a small, recessed reset button in the rear\nco-located with the blue status lamp next to the DC power input.",
+            "title": "Wireless Connectivity"
+        },
+        {
+            "location": "/relay/usage/",
+            "text": "Usage and Validation Procedures\n\u00b6\n\n\nWhen it comes time to validate an assembled rack, Joyent Build Operations will\ndirect integration personnel to attach a DRD to a rack in the manner prescribed\nbelow. At this point, all devices in the rack should be completely powered off.\n\n\nAttaching The DRD\n\u00b6\n\n\nA DRD requires 2 ethernet and 1 power connection to a rack:\n\n\n\n\nETH0 should be plugged into port 21 on the Cisco management switch\n\n\nETH1 should be plugged into port 23 on the bottom Arista switch\n\n\n\n\nThe cable for ETH1/Arista requires the included 1gig copper SFP module.\n\n\n\n\nIMAGE\n\n\nNeed to add the DRD network image here.\n\n\n\n\nThe AC-DC power adaptor. Ensure that the DRD is powered and the blue lamp on the\nrear of the unit is illuminated. The blue lamp is a LED that is visible through\nthe reset button access port to the upper-right of the DC power connector.\n\n\nPowering On The Racks\n\u00b6\n\n\nThese steps should be completed in order:\n\n\nVerify that all system serial numbers for the rack have been entered into the\npreflight database as shown in the following figure.  When all serial numbers\nare entered into the text boxes associated with their rack unit, press the\nAssign Devices button to save the information.\n\n\n\n\nIMAGE\n\n\nRack assignment image\n\n\n\n\nThe rack is now ready to be powered on.  When the rack\u2019s PDUs are switched on,\nthe switches, DRD and server BMCs should power on. From this point, the process\nis hands-off.\n\n\nThe DRD is programmed to start the servers after assigning IP addresses to the\nserver BMCs.\n\n\nThe switches and servers will immediately enter the automated upgrade and\nvalidation process.\n\n\nCompleting A Rack\n\u00b6\n\n\nWhen the DRD has finished validating a server and all tests are successfully\npassed, the server will go through a period of burn-in lasting several hours. A\ntimer will display how long a given device has left to burn-in when viewing\nDevice Details.\n\n\nUpon completion and if no components fail during the burn-in process, the server\nwill be automatically powered down. When all servers in a rack have reached this\nstage, the rack is considered complete, and the DRD may be removed to the next\nrack to be put through the Preflight process at the direction of Joyent Build\nOperations.",
+            "title": "Usage"
+        },
+        {
+            "location": "/relay/usage/#usage-and-validation-procedures",
+            "text": "When it comes time to validate an assembled rack, Joyent Build Operations will\ndirect integration personnel to attach a DRD to a rack in the manner prescribed\nbelow. At this point, all devices in the rack should be completely powered off.",
+            "title": "Usage and Validation Procedures"
+        },
+        {
+            "location": "/relay/usage/#attaching-the-drd",
+            "text": "A DRD requires 2 ethernet and 1 power connection to a rack:   ETH0 should be plugged into port 21 on the Cisco management switch  ETH1 should be plugged into port 23 on the bottom Arista switch   The cable for ETH1/Arista requires the included 1gig copper SFP module.   IMAGE  Need to add the DRD network image here.   The AC-DC power adaptor. Ensure that the DRD is powered and the blue lamp on the\nrear of the unit is illuminated. The blue lamp is a LED that is visible through\nthe reset button access port to the upper-right of the DC power connector.",
+            "title": "Attaching The DRD"
+        },
+        {
+            "location": "/relay/usage/#powering-on-the-racks",
+            "text": "These steps should be completed in order:  Verify that all system serial numbers for the rack have been entered into the\npreflight database as shown in the following figure.  When all serial numbers\nare entered into the text boxes associated with their rack unit, press the\nAssign Devices button to save the information.   IMAGE  Rack assignment image   The rack is now ready to be powered on.  When the rack\u2019s PDUs are switched on,\nthe switches, DRD and server BMCs should power on. From this point, the process\nis hands-off.  The DRD is programmed to start the servers after assigning IP addresses to the\nserver BMCs.  The switches and servers will immediately enter the automated upgrade and\nvalidation process.",
+            "title": "Powering On The Racks"
+        },
+        {
+            "location": "/relay/usage/#completing-a-rack",
+            "text": "When the DRD has finished validating a server and all tests are successfully\npassed, the server will go through a period of burn-in lasting several hours. A\ntimer will display how long a given device has left to burn-in when viewing\nDevice Details.  Upon completion and if no components fail during the burn-in process, the server\nwill be automatically powered down. When all servers in a rack have reached this\nstage, the rack is considered complete, and the DRD may be removed to the next\nrack to be put through the Preflight process at the direction of Joyent Build\nOperations.",
+            "title": "Completing A Rack"
+        },
+        {
+            "location": "/relay/status/",
+            "text": "Status Information and Icons\n\u00b6",
+            "title": "Staus and Icons"
+        },
+        {
+            "location": "/relay/status/#status-information-and-icons",
+            "text": "",
+            "title": "Status Information and Icons"
+        }
+    ]
+}
