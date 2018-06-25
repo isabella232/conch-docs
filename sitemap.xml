@@ -16,11 +16,6 @@
      <changefreq>daily</changefreq>
     </url>
     <url>
-     <loc>/development/</loc>
-     <lastmod>2018-06-25</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    <url>
      <loc>/features/</loc>
      <lastmod>2018-06-25</lastmod>
      <changefreq>daily</changefreq>
@@ -62,6 +57,16 @@
     </url>
     <url>
      <loc>/relay/status/</loc>
+     <lastmod>2018-06-25</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>/development/</loc>
+     <lastmod>2018-06-25</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>/development/validations/</loc>
      <lastmod>2018-06-25</lastmod>
      <changefreq>daily</changefreq>
     </url>
