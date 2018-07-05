@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.4, mkdocs-material-2.9.1">
+      <meta name="generator" content="mkdocs-0.17.4, mkdocs-material-2.9.2">
     
     
       
@@ -447,8 +447,36 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#development-process" title="Development Process" class="md-nav__link">
-    Development Process
+  <a href="#repositories" title="Repositories" class="md-nav__link">
+    Repositories
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#process" title="Process" class="md-nav__link">
+    Process
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" title="Testing" class="md-nav__link">
+    Testing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#releases" title="Releases" class="md-nav__link">
+    Releases
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buildbot" title="Buildbot" class="md-nav__link">
+    Buildbot
   </a>
   
 </li>
@@ -516,8 +544,36 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#development-process" title="Development Process" class="md-nav__link">
-    Development Process
+  <a href="#repositories" title="Repositories" class="md-nav__link">
+    Repositories
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#process" title="Process" class="md-nav__link">
+    Process
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" title="Testing" class="md-nav__link">
+    Testing
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#releases" title="Releases" class="md-nav__link">
+    Releases
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#buildbot" title="Buildbot" class="md-nav__link">
+    Buildbot
   </a>
   
 </li>
@@ -592,10 +648,78 @@
 RFDs.</p>
 <p>Conch is designed in public as much as possible, though there some components
 that are currently closed (until they can be scrubbed for security.)</p>
-<h2 id="development-process">Development Process<a class="headerlink" href="#development-process" title="Permanent link">&para;</a></h2>
-<p>All Pull Requests to Conch repos require code review by at least one engineer.</p>
-<p>A buildbot deployment runs the Conch test suites for every commit.</p>
-<p>Binary releases of the Conch Shell are available <a href="https://github.com/joyent/conch-shell/releases">here</a> for many platforms.</p>
+<h2 id="repositories">Repositories<a class="headerlink" href="#repositories" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Repo</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>API</td>
+<td><a href="https://github.com/joyent/conch">https://github.com/joyent/conch</a></td>
+</tr>
+<tr>
+<td>Shell</td>
+<td><a href="https://github.com/joyent/conch-shell">https://github.com/joyent/conch-shell</a></td>
+</tr>
+<tr>
+<td>UI</td>
+<td><a href="https://github.com/joyent/conch-ui">https://github.com/joyent/conch-ui</a></td>
+</tr>
+<tr>
+<td>Stats API</td>
+<td><a href="https://github.com/joyent/conch-stats">https://github.com/joyent/conch-stats</a></td>
+</tr>
+</tbody>
+</table>
+<p>Other code may be in private repositories and/or behind a VPN. Ask a member of
+the Conch team for more info.</p>
+<h2 id="process">Process<a class="headerlink" href="#process" title="Permanent link">&para;</a></h2>
+<p>All software is developed using <a href="https://git-scm.com/">git</a> and the vast
+majority of our code lives in <a href="https://github.com/joyent">Github</a>. As a rule,
+we default to open source using the MPL2 license. There are situations where
+code may be deemed too sensitive or too specific to a given client for the code
+to be fully open.  These are fairly rare situations, however, and our preference
+is to be as open as possible. </p>
+<p>In most repositories, 'master' is a protected branch. Users cannot push to
+master directly and changes must be merged in via a pull request. Pull requests
+almost universally require another developer to approve the changes. Most
+repositories are also tied into
+<a href="https://svc.conch.joyent.us/buildbot">Buildbot</a> and must pass tests before a
+PR can be merged. This level of process is designed to help hold the team
+accountable for code changes and we strive for consensus in application designs
+and implementation.</p>
+<h2 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h2>
+<p>The Conch API has an extensive test suite. As a general rule, incoming PRs must
+be accompanied by tests and all tests must pass. Tests will be run by Buildbot
+whenever a user pushes code up to Github (including topic and personal
+branches) as well as when a PR is sent. We do not require topic and personal
+branches to pass tests until they are ready for a PR.</p>
+<p>The Conch Shell has a small but growing test suite. As with the API, tests must
+pass for a PR. More importantly, being a Go application, incoming code must be
+formatted using gofmt and must pass gometalinter checks for best practices. See
+the Makefile for the list of linters run during tests. Further, every test run
+attempts to build the application for all target platforms. PRs must pass tests,
+linter checks, and must build on all target platforms.</p>
+<h2 id="releases">Releases<a class="headerlink" href="#releases" title="Permanent link">&para;</a></h2>
+<p>The Conch API, UI, Stats, and Shell are all released using git tags, formatted
+in <a href="https://semver.org/">SemVer</a> style. In the case of the API and Shell,
+releases are managed via Buildbot. When a user pushes up a new tag, Buildbot
+executes the test suite. If tests pass, a new Github release is created, using
+the tag's commit message as the body
+(<a href="https://github.com/joyent/conch/releases/tag/v2.11.0">example</a>).  </p>
+<p>For the API and Shell, we've been building the tag body using a Ruby app named
+<a href="https://github.com/github-changelog-generator/github-changelog-generator">github-changelog-generator</a>
+and copying in the data for just the current release.</p>
+<h2 id="buildbot">Buildbot<a class="headerlink" href="#buildbot" title="Permanent link">&para;</a></h2>
+<p>Our <a href="https://svc.conch.joyent.us/buildbot">Buildbot</a> setup is managed via
+Ansible. A Conch developer can provide a pointer to that repo. Currently,
+Buildbot executes all its work on a single FreeBSD KVM. To add a new repo to
+Buildbot, the master configuration must be updated and a Github webhook must be
+added to the repository. The Conch API repo can be used as an example.</p>
 <h2 id="similar-products">Similar Products<a class="headerlink" href="#similar-products" title="Permanent link">&para;</a></h2>
 <ul>
 <li>The Foreman</li>

@@ -2,72 +2,72 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
      <loc>/</loc>
-     <lastmod>2018-06-25</lastmod>
+     <lastmod>2018-07-05</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>/about/</loc>
-     <lastmod>2018-06-25</lastmod>
+     <lastmod>2018-07-05</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>/architecture/</loc>
-     <lastmod>2018-06-25</lastmod>
+     <lastmod>2018-07-05</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>/features/</loc>
-     <lastmod>2018-06-25</lastmod>
+     <lastmod>2018-07-05</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>/roadmap/</loc>
-     <lastmod>2018-06-25</lastmod>
+     <lastmod>2018-07-05</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>/usage/</loc>
-     <lastmod>2018-06-25</lastmod>
+     <lastmod>2018-07-05</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>/usage/ui/</loc>
-     <lastmod>2018-06-25</lastmod>
+     <lastmod>2018-07-05</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>/usage/cli/</loc>
-     <lastmod>2018-06-25</lastmod>
+     <lastmod>2018-07-05</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>/relay/</loc>
-     <lastmod>2018-06-25</lastmod>
+     <lastmod>2018-07-05</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>/relay/setup/</loc>
-     <lastmod>2018-06-25</lastmod>
+     <lastmod>2018-07-05</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>/relay/usage/</loc>
-     <lastmod>2018-06-25</lastmod>
+     <lastmod>2018-07-05</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>/relay/status/</loc>
-     <lastmod>2018-06-25</lastmod>
+     <lastmod>2018-07-05</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>/development/</loc>
-     <lastmod>2018-06-25</lastmod>
+     <lastmod>2018-07-05</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>/development/validations/</loc>
-     <lastmod>2018-06-25</lastmod>
+     <lastmod>2018-07-05</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
