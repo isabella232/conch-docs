@@ -27,7 +27,7 @@ Click View Device to open details and review the validation failures.
 ### Device Details: View Validation Failure
 
 When a device fails validation, the Validation tab in the Device Details view
-will provide information on what has failed. In this case, the devices
+will provide information on what has failed. In this case, the device's
 networking is not cabled correctly.
 
 ![v-failure](../images/device_view_validation_failure.png)
