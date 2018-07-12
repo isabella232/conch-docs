@@ -1,6 +1,6 @@
 # Usage
 
-Conch is meant to enable datacenter operators and integrators to effecitvely
+Conch is meant to enable datacenter operators and integrators to effectively
 manage and build datacenters.
 
 We provide a reactive UI written in mithril.js for the web interface, and a
