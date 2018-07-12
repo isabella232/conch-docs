@@ -96,6 +96,6 @@ added to the repository. The Conch API repo can be used as an example.
 * Collins
 * netbox
 * device42
-* Commerical CMMS (e.g., Fiix)
+* Commercial CMMS (e.g., Fiix)
 * GitHub Metal Cloud
 
