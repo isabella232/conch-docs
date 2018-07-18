@@ -4,6 +4,12 @@ When it comes time to validate an assembled rack, Joyent Build Operations will
 direct integration personnel to attach a DRD to a rack in the manner prescribed
 below. At this point, all devices in the rack should be completely powered off.
 
+## Switches _Must_ be Factory Default
+
+If any previous burn-in was done on the rack, all switches in the rack must be
+reset to their factory defaults. Any non-default configuration will confuse the
+automation and cause preflight to fail.
+
 ## Attaching The DRD
 
 A DRD requires 2 ethernet and 1 power connection to a rack:
