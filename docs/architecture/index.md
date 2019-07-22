@@ -8,31 +8,29 @@ It exposes basic CRUD for all resources we know how to manage:
 
 * Users
 * Workspaces
-* Datacenters, rooms (soon: cages)
+* Datacenters, rooms
 * Racks
 * Hardware products (servers, switches)
+* Relays (DRDs and other device report generators)
 * Devices
 * Validation failures
-* Stats
 
-Workspaces are arbitrary collections of Datacenter Rooms or Racks. This is
+Workspaces are arbitrary collections of Datacenter Racks. This is
 useful for a number of reasons: You can define workspaces for AZs, for
 expansions, or for specific builds. You can invite specific users to a given
 workspace, allowing you to limit the devices an outside vendor can interact
 with. Workspaces are a very powerful, useful primitive.
 
 It also includes report ingestion and validation endpoints. These feed into the
-[validation engine](https://github.com/joyent/conch/blob/master/Conch/docs/validation/BaseValidation.md)
+[validation engine](https://joyent.github.io/conch/validation/BaseValidation)
 which allows us to decide if a device is healthy or not, based off its hardware
 profile, environmental or arbitrary data.
 
 Writing and testing new validations is documented
-[here](https://github.com/joyent/conch/blob/master/Conch/docs/validation/Guide.md).
+[here](https://joyent.github.io/conch/validation/Guide)
 
 The APIs are written in Perl's [Mojolicious framework](https://mojolicious.org/), and are available
-[here](https://github.com/joyent/conch).
-
-A basic workspace-aware stats framework is available [here](https://github.com/joyent/conch-stats).
+[here](https://joyent.github.io/conch).
 
 ### UI
 
