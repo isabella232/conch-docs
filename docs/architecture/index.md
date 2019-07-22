@@ -45,7 +45,7 @@ options, and more advanced features like datacenter, rack, and BOM design.
 
 The UI is an API consumer, and is not magical in any respect.
 
-The UI is written in [Mithril.js](https://mithril.js.org/), and is available
+The UI is written in [Vue.js](https://vuejs.org/), and is available
 [here](https://github.com/joyent/conch-ui).
 
 ### Conch Shell
