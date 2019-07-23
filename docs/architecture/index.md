@@ -2,7 +2,7 @@
 
 ### API
 
-Conch's core is its REST API. The API is documented [here](https://conch.joyent.us/doc).
+Conch's core is its REST API. The API is documented [here](https://joyent.github.io/conch).
 
 It exposes basic CRUD for all resources we know how to manage:
 
