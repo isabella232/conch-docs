@@ -32,7 +32,7 @@
         <meta name="lang:search.tokenizer" content="[\s\-]+">
       
       <link rel="shortcut icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-0.17.4, mkdocs-material-2.9.1">
+      <meta name="generator" content="mkdocs-0.17.5, mkdocs-material-2.9.2">
     
     
       
@@ -652,32 +652,31 @@
                 
                 <h2 id="components">Components<a class="headerlink" href="#components" title="Permanent link">&para;</a></h2>
 <h3 id="api">API<a class="headerlink" href="#api" title="Permanent link">&para;</a></h3>
-<p>Conch's core is its REST API. The API is documented <a href="https://conch.joyent.us/doc">here</a>.</p>
+<p>Conch's core is its REST API. The API is documented <a href="https://joyent.github.io/conch">here</a>.</p>
 <p>It exposes basic CRUD for all resources we know how to manage:</p>
 <ul>
 <li>Users</li>
 <li>Workspaces</li>
-<li>Datacenters, rooms (soon: cages)</li>
+<li>Datacenters, rooms</li>
 <li>Racks</li>
 <li>Hardware products (servers, switches)</li>
+<li>Relays (DRDs and other device report generators)</li>
 <li>Devices</li>
 <li>Validation failures</li>
-<li>Stats</li>
 </ul>
-<p>Workspaces are arbitrary collections of Datacenter Rooms or Racks. This is
+<p>Workspaces are arbitrary collections of Datacenter Racks. This is
 useful for a number of reasons: You can define workspaces for AZs, for
 expansions, or for specific builds. You can invite specific users to a given
 workspace, allowing you to limit the devices an outside vendor can interact
 with. Workspaces are a very powerful, useful primitive.</p>
 <p>It also includes report ingestion and validation endpoints. These feed into the
-<a href="https://github.com/joyent/conch/blob/master/Conch/docs/validation/BaseValidation.md">validation engine</a>
+<a href="https://joyent.github.io/conch/validation/BaseValidation">validation engine</a>
 which allows us to decide if a device is healthy or not, based off its hardware
 profile, environmental or arbitrary data.</p>
 <p>Writing and testing new validations is documented
-<a href="https://github.com/joyent/conch/blob/master/Conch/docs/validation/Guide.md">here</a>.</p>
+<a href="https://joyent.github.io/conch/validation/Guide">here</a></p>
 <p>The APIs are written in Perl's <a href="https://mojolicious.org/">Mojolicious framework</a>, and are available
-<a href="https://github.com/joyent/conch">here</a>.</p>
-<p>A basic workspace-aware stats framework is available <a href="https://github.com/joyent/conch-stats">here</a>.</p>
+<a href="https://joyent.github.io/conch">here</a>.</p>
 <h3 id="ui">UI<a class="headerlink" href="#ui" title="Permanent link">&para;</a></h3>
 <p>The Conch UI is rapidly evolving. Its initial design was targeted at hardware
 integrators and datacenter operation staff -- the main focus was on defining
@@ -685,7 +684,7 @@ rack layout and identifying problems with devices in those racks.</p>
 <p>As time goes on, the UI will expand to include better search and reporting
 options, and more advanced features like datacenter, rack, and BOM design.</p>
 <p>The UI is an API consumer, and is not magical in any respect.</p>
-<p>The UI is written in <a href="https://mithril.js.org/">Mithril.js</a>, and is available
+<p>The UI is written in <a href="https://vuejs.org/">Vue.js</a>, and is available
 <a href="https://github.com/joyent/conch-ui">here</a>.</p>
 <h3 id="conch-shell">Conch Shell<a class="headerlink" href="#conch-shell" title="Permanent link">&para;</a></h3>
 <p>The Conch Shell is a CLI tool provides many useful primitives for interacting
@@ -813,7 +812,7 @@ service.</p>
     
       <script src="../assets/javascripts/application.a59e2a89.js"></script>
       
-      <script>app.initialize({version:"0.17.4",url:{base:".."}})</script>
+      <script>app.initialize({version:"0.17.5",url:{base:".."}})</script>
       
     
     
