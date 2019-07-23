@@ -30,7 +30,6 @@ that are currently closed (until they can be scrubbed for security.)
 | API | https://github.com/joyent/conch |
 | Shell | https://github.com/joyent/conch-shell |
 | UI | https://github.com/joyent/conch-ui |
-| Stats API | https://github.com/joyent/conch-stats |
 
 Other code may be in private repositories and/or behind a VPN. Ask a member of
 the Conch team for more info.
